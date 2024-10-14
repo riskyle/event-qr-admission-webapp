@@ -1,17 +1,16 @@
 import type { AppProps } from 'next/app'
-import type { LayoutProps } from '@vercel/examples-ui/layout'
-import { getLayout } from '@vercel/examples-ui'
-import '@vercel/examples-ui/globals.css'
+import "./globals.css";
+import Head from 'next/head';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  const Layout = getLayout<LayoutProps>(Component)
 
   return (
-    <Layout
-      title="Password Protected"
-      path="edge-middleware/basic-auth-password"
-    >
+    <>
+      <Head>
+        <title>Glitz & Glam SOS</title>
+
+      </Head>
       <Component {...pageProps} />
-    </Layout>
+    </>
   )
 }
