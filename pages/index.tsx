@@ -12,7 +12,7 @@ interface EmployeeType {
 const App = () => {
   const picture = (url: string) => {
     if (url) {
-      return 'https://storage.googleapis.com/event-qr-admission.appspot.com/' + url;
+      return `https://storage.googleapis.com/event-qr-admission.appspot.com/${url}`;
     } else {
       return 'https://clipart-library.com/images/ATbrxjpyc.jpg';
     }
