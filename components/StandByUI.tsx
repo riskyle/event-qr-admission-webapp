@@ -51,7 +51,7 @@ const StandByUI = ({ picture }) => {
         <div style={{ position: 'relative', width: '100%', height: '100vh', backgroundColor, overflow: 'hidden' }}>
             <img
                 ref={imgRef}
-                src={picture("img1/standbymodeBG.png")}
+                src={picture("img/standbymodeBG.png")}
                 alt="Bouncing Image"
                 style={{ position: 'absolute', left: position.x, top: position.y, width: '300px' }}
             />
