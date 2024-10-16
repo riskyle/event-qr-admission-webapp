@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../firebase/index";
 import { DocumentData, onSnapshot, QuerySnapshot } from "firebase/firestore";
 import { queryEmployee } from "../firebase";
+import MainUI from "../components/MainUI";
+import StandByUI from "../components/StandByUI";
 
 interface EmployeeType {
   account: string;
@@ -18,11 +20,23 @@ const App = () => {
     }
   };
 
+  const [isStandby, setIsStandBy] = useState<boolean>(false);
+  const standByTime = useRef<NodeJS.Timeout | null>(null)
+
   const [employee, setEmployee] = useState<EmployeeType>({
     account: "",
     name: "",
     picture: "",
   });
+
+  const resetStandbyTimer = () => {
+    if (standByTime.current) {
+      clearTimeout(standByTime.current);
+    }
+    standByTime.current = setTimeout(() => {
+      setIsStandBy(true);
+    }, 10000);
+  };
 
   const employeeDetails = (
     snapshot: QuerySnapshot<DocumentData, DocumentData>
@@ -35,6 +49,8 @@ const App = () => {
           picture: employee.data()["picture"],
         });
       });
+      setIsStandBy(false);
+      resetStandbyTimer();
     } catch (error) {
       console.log(error);
     }
@@ -44,33 +60,7 @@ const App = () => {
     onSnapshot(queryEmployee, (snapshot) => employeeDetails(snapshot));
   }, []);
 
-  return (
-    <>
-      <div className="grid">
-        <div className="left-section">
-          <img src="" alt="" />
-          <div className="container-picture" style={{ backgroundImage: `url(${picture(employee.picture)})` }}>
-            <img className="sos" src={picture("img/sos.png")} alt="" />
-            <img className="glitz-glam" src={picture("img/glitz-glam.png")} alt="" />
-            <img className="tenyears" src={picture("img/10years.png")} alt="" />
-            <img className="spark" src={picture("img/spark.png")} alt="" />
-            <img className="spark1" src={picture("img/spark.png")} alt="" />
-            <img className="spark2" src={picture("img/spark.png")} alt="" />
-          </div>
-        </div>
-
-        <div className="right-section">
-
-          <img className="staff" src={picture("img/staffplain.png")} alt="" />
-          <div className="bottom-section">
-            <p className="account-name">"{employee.account}"</p>
-            <p className="name">{employee.name}</p>
-            <p className="table">Table 1</p>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+  return isStandby ? (<StandByUI picture={picture} />) : (<MainUI picture={picture} employee={employee} />)
 };
 
 export default App;
