@@ -9,6 +9,7 @@ interface EmployeeType {
   account: string;
   name: string;
   picture: string;
+  table: string;
 }
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
     account: "",
     name: "",
     picture: "",
+    table: "",
   });
 
   const resetStandbyTimer = () => {
@@ -47,6 +49,7 @@ const App = () => {
           account: employee.data()["account"],
           name: employee.data()["name"],
           picture: employee.data()["picture"],
+          table: employee.data()["belongsTo"],
         });
       });
       setIsStandBy(false);

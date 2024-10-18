@@ -23,7 +23,7 @@ const MainUI = ({ picture, employee }) => {
                         <div className="bottom-section">
                             <p className="name">{employee.name}</p>
                             <p className="account-name">{employee.account}</p>
-                            <p className="table">Table 1</p>
+                            <p className="table">{employee.table}</p>
                         </div>
                     </div>
 
