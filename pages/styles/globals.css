@@ -76,6 +76,7 @@
 .account-name {
     color: rgb(255, 255, 255);
     font-size: 60px;
+    text-transform: uppercase;
     font-family: "Roboto Condensed", sans-serif;
     letter-spacing: -2px;
     font-weight: 700;
