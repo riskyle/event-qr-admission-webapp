@@ -11,8 +11,6 @@ const MainUI = ({ picture, employee, queue, setQueue }) => {
         if (!isProcessing && queue.length > 0) {
             setIsProcessing(true);
 
-            console.log(queue);
-
             const currentDetails = queue[0] as EmployeeType;
 
             console.log(currentDetails);
@@ -25,7 +23,7 @@ const MainUI = ({ picture, employee, queue, setQueue }) => {
                 picture: currentDetails.picture,
             })
 
-            setQueue(prevQueue => prevQueue.slice(1));
+            setQueue((prevQueue: string | any[]) => prevQueue.slice(1));
 
             setTimeout(() => setIsProcessing(false), 500);
         }
