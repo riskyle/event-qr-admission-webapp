@@ -1,5 +1,36 @@
+import { useEffect, useState } from "react";
+import { EmployeeType } from "../pages";
 
-const MainUI = ({ picture, employee }) => {
+
+
+const MainUI = ({ picture, employee, queue, setQueue }) => {
+    const [isProcessing, setIsProcessing] = useState(false);
+    const [display, setDisplay] = useState<EmployeeType>({} as EmployeeType);
+
+    useEffect(() => {
+        if (!isProcessing && queue.length > 0) {
+            setIsProcessing(true);
+
+            console.log(queue);
+
+            const currentDetails = queue[0] as EmployeeType;
+
+            console.log(currentDetails);
+
+            setDisplay({
+                ...display,
+                name: currentDetails.name,
+                account: currentDetails.account,
+                belongsTo: currentDetails.belongsTo,
+                picture: currentDetails.picture,
+            })
+
+            setQueue(prevQueue => prevQueue.slice(1));
+
+            setTimeout(() => setIsProcessing(false), 2000);
+        }
+    }, [isProcessing, queue]);
+
     return (
         <>
             <div className="display">
@@ -19,11 +50,12 @@ const MainUI = ({ picture, employee }) => {
                     </div>
 
                     <div className="right-section">
+
                         <img className="staff" src={picture("img/staffplain.png")} alt="" />
                         <div className="bottom-section">
-                            <p className="name">{employee.name}</p>
+                            <p className="name">{display.name}</p>
                             <p className="account-name">{employee.account}</p>
-                            <p className="table">{employee.table}</p>
+                            <p className="table">{employee.belongsTo}</p>
                         </div>
                     </div>
 

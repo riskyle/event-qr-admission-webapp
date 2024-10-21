@@ -5,11 +5,11 @@ import { queryEmployee } from "../firebase";
 import MainUI from "../components/MainUI";
 import StandByUI from "../components/StandByUI";
 
-interface EmployeeType {
+export interface EmployeeType {
   account: string;
   name: string;
   picture: string;
-  table: string;
+  belongsTo: string;
 }
 
 const App = () => {
@@ -24,11 +24,12 @@ const App = () => {
   const [isStandby, setIsStandBy] = useState<boolean>(false);
   const standByTime = useRef<NodeJS.Timeout | null>(null)
 
+  const [queue, setQueue] = useState<Array<EmployeeType>>([]);
   const [employee, setEmployee] = useState<EmployeeType>({
     account: "",
     name: "",
     picture: "",
-    table: "",
+    belongsTo: "",
   });
 
   const resetStandbyTimer = () => {
@@ -45,13 +46,18 @@ const App = () => {
   ) => {
     try {
       snapshot.docs.map((employee) => {
+        const emp = { ...employee.data() } as any;
+
+        setQueue(prevQueue => [...prevQueue, emp]);
+
         setEmployee({
-          account: employee.data()["account"],
-          name: employee.data()["name"],
-          picture: employee.data()["picture"],
-          table: employee.data()["belongsTo"],
+          account: emp.account,
+          name: emp.name,
+          picture: emp.picture,
+          belongsTo: emp.belongsTo,
         });
       });
+
       setIsStandBy(false);
       resetStandbyTimer();
     } catch (error) {
@@ -63,7 +69,8 @@ const App = () => {
     onSnapshot(queryEmployee, (snapshot) => employeeDetails(snapshot));
   }, []);
 
-  return isStandby ? (<StandByUI picture={picture} />) : (<MainUI picture={picture} employee={employee} />)
+  // return isStandby ? (<StandByUI picture={picture} />) : (<MainUI picture={picture} employee={employee} queue={queue} setQueue={setQueue} />)
+  return <MainUI picture={picture} employee={employee} queue={queue} setQueue={setQueue} />;
 };
 
 export default App;
