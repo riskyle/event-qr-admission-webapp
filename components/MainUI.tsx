@@ -27,7 +27,7 @@ const MainUI = ({ picture, employee, queue, setQueue }) => {
 
             setQueue(prevQueue => prevQueue.slice(1));
 
-            setTimeout(() => setIsProcessing(false), 2000);
+            setTimeout(() => setIsProcessing(false), 500);
         }
     }, [isProcessing, queue]);
 
@@ -38,7 +38,7 @@ const MainUI = ({ picture, employee, queue, setQueue }) => {
                     <div className="left-section">
                         <div
                             className="container-picture"
-                            style={{ backgroundImage: `url(${picture(employee.picture)})` }}
+                            style={{ backgroundImage: `url(${picture(display.picture)})` }}
                         >
                             <img className="sos" src={picture("img/sos.png")} alt="" />
                             <img className="glitz-glam" src={picture("img/glamsparkingeffect.gif")} alt="" />
@@ -54,8 +54,8 @@ const MainUI = ({ picture, employee, queue, setQueue }) => {
                         <img className="staff" src={picture("img/staffplain.png")} alt="" />
                         <div className="bottom-section">
                             <p className="name">{display.name}</p>
-                            <p className="account-name">{employee.account}</p>
-                            <p className="table">{employee.belongsTo}</p>
+                            <p className="account-name">{display.account}</p>
+                            <p className="table">{display.belongsTo}</p>
                         </div>
                     </div>
 
