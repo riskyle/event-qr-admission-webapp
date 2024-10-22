@@ -7,27 +7,30 @@ const MainUI = ({ picture, employee, queue, setQueue }) => {
     const [isProcessing, setIsProcessing] = useState(false);
     const [display, setDisplay] = useState<EmployeeType>({} as EmployeeType);
 
-    useEffect(() => {
-        if (!isProcessing && queue.length > 0) {
-            setIsProcessing(true);
+    const getQueue = async (queue) => {
+        for (let q of queue) {
 
-            const currentDetails = queue[0] as EmployeeType;
-
-            console.log(currentDetails);
+            console.log(q);
 
             setDisplay({
                 ...display,
-                name: currentDetails.name,
-                account: currentDetails.account,
-                belongsTo: currentDetails.belongsTo,
-                picture: currentDetails.picture,
-            })
+                account: q.account,
+                name: q.name,
+                picture: q.picture,
+                belongsTo: q.belongsTo,
+            });
 
-            setQueue((prevQueue: string | any[]) => prevQueue.slice(1));
+            await new Promise(resolve => setTimeout(resolve, 3000));
 
-            setTimeout(() => setIsProcessing(false), 500);
+            console.log(queue);
+
+            console.log("done")
         }
-    }, [isProcessing, queue]);
+    }
+
+    useEffect(() => {
+        getQueue(queue);
+    }, [queue]);
 
     return (
         <>
@@ -36,7 +39,7 @@ const MainUI = ({ picture, employee, queue, setQueue }) => {
                     <div className="left-section">
                         <div
                             className="container-picture"
-                            style={{ backgroundImage: `url(${picture(display.picture)})` }}
+                            style={{ backgroundImage: `url(${picture(queue.length > 0 ? display.picture : employee.picture)})` }}
                         >
                             <img className="sos" src={picture("img/sos.png")} alt="" />
                             <img className="glitz-glam" src={picture("img/glamsparkingeffect.gif")} alt="" />
@@ -48,12 +51,11 @@ const MainUI = ({ picture, employee, queue, setQueue }) => {
                     </div>
 
                     <div className="right-section">
-
                         <img className="staff" src={picture("img/staffplain.png")} alt="" />
                         <div className="bottom-section">
-                            <p className="name">{display.name}</p>
-                            <p className="account-name">{display.account}</p>
-                            <p className="table">{display.belongsTo}</p>
+                            <p className="name">{queue.length > 0 ? display.name : employee.name}</p>
+                            <p className="account-name">{queue.length > 0 ? display.account : employee.account}</p>
+                            <p className="table">{queue.length > 0 ? display.belongsTo : employee.belongsTo}</p>
                         </div>
                     </div>
 
