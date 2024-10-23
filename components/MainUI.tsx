@@ -1,35 +1,39 @@
 import { useEffect, useState } from "react";
 import { EmployeeType } from "../pages";
 
+const capitalizeFirstLetter = (str: string) =>
+    str.toLowerCase()
+        .split(" ")
+        .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
 
-
-const MainUI = ({ picture, employee, queue, setQueue }) => {
-    const [isProcessing, setIsProcessing] = useState(false);
+const MainUI = ({ picture, queue, setQueue }) => {
     const [display, setDisplay] = useState<EmployeeType>({} as EmployeeType);
 
-    useEffect(() => {
-        if (!isProcessing && queue.length > 0) {
-            setIsProcessing(true);
+    const getQueue = async (queue: any) => {
+        console.log(queue);
 
-            console.log(queue);
+        for (let q of queue) {
 
-            const currentDetails = queue[0] as EmployeeType;
-
-            console.log(currentDetails);
+            console.log(q);
 
             setDisplay({
                 ...display,
-                name: currentDetails.name,
-                account: currentDetails.account,
-                belongsTo: currentDetails.belongsTo,
-                picture: currentDetails.picture,
-            })
+                account: q.account,
+                name: q.name,
+                picture: q.picture,
+                belongsTo: q.belongsTo,
+            });
 
-            setQueue(prevQueue => prevQueue.slice(1));
+            await new Promise(resolve => setTimeout(resolve, 10000));
 
-            setTimeout(() => setIsProcessing(false), 500);
+            setQueue((prevQueue: any) => prevQueue.slice(1));
         }
-    }, [isProcessing, queue]);
+    }
+
+    useEffect(() => {
+        getQueue(queue);
+    }, [queue]);
 
     return (
         <>
@@ -54,8 +58,8 @@ const MainUI = ({ picture, employee, queue, setQueue }) => {
                         <img className="staff" src={picture("img/staffplain.png")} alt="" />
                         <div className="bottom-section">
                             <p className="name">{display.name}</p>
-                            <p className="account-name">{display.account}</p>
-                            <p className="table">{display.belongsTo}</p>
+                            <p className="account-name">{capitalizeFirstLetter(display.account ?? "")}</p>
+                            <p className="table">{capitalizeFirstLetter(display.belongsTo ?? "")}</p>
                         </div>
                     </div>
 
@@ -70,3 +74,4 @@ const MainUI = ({ picture, employee, queue, setQueue }) => {
 }
 
 export default MainUI;
+
