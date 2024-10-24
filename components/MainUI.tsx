@@ -7,33 +7,32 @@ const capitalizeFirstLetter = (str: string) =>
         .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(" ");
 
-const MainUI = ({ picture, queue, setQueue }) => {
+const MainUI = ({ picture, queue, setQueue, setIsStandBy, resetStandbyTimer }) => {
     const [display, setDisplay] = useState<EmployeeType>({} as EmployeeType);
+    const [isProcessing, setIsProcessing] = useState(false);
 
-    const getQueue = async (queue: any) => {
-        console.log(queue);
+    useEffect(() => {
+        if (!isProcessing && queue.length > 0) {
+            setIsProcessing(true);
 
-        for (let q of queue) {
-
-            console.log(q);
+            const currentDetails = queue[0] as EmployeeType;
 
             setDisplay({
                 ...display,
-                account: q.account,
-                name: q.name,
-                picture: q.picture,
-                belongsTo: q.belongsTo,
-            });
+                name: currentDetails.name,
+                account: currentDetails.account,
+                belongsTo: currentDetails.belongsTo,
+                picture: currentDetails.picture,
+            })
 
-            await new Promise(resolve => setTimeout(resolve, 10000));
+            setIsStandBy(false)
+            resetStandbyTimer();
 
             setQueue((prevQueue: any) => prevQueue.slice(1));
-        }
-    }
 
-    useEffect(() => {
-        getQueue(queue);
-    }, [queue]);
+            setTimeout(() => setIsProcessing(false), 5000);
+        }
+    }, [isProcessing, queue]);
 
     return (
         <>
@@ -58,7 +57,7 @@ const MainUI = ({ picture, queue, setQueue }) => {
                         <img className="staff" src={picture("img/staffplain.png")} alt="" />
                         <div className="bottom-section">
                             <p className="name">{display.name}</p>
-                            <p className="account-name">{capitalizeFirstLetter(display.account ?? "")}</p>
+                            <p className="account-name">{display.account}</p>
                             <p className="table">{capitalizeFirstLetter(display.belongsTo ?? "")}</p>
                         </div>
                     </div>
