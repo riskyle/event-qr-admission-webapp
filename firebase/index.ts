@@ -21,6 +21,18 @@ const firebaseConfig = {
   appId: "1:834742315666:web:c2da602c2d6f133da5544b",
 };
 
+/* 
+                !!!!BACKER!!!!
+ const firebaseConfig = {
+   apiKey: "AIzaSyBKx9ox4_r82rZjc-yQhdkb4qdnQ3uERYQ",
+   authDomain: "event-qr-admission-backer.firebaseapp.com",
+   projectId: "event-qr-admission-backer",
+   storageBucket: "event-qr-admission-backer.appspot.com",
+   messagingSenderId: "834742315666",
+   appId: "1:834742315666:web:c2da602c2d6f133da5544b",
+ };
+*/
+
 // Initialize Firebase
 initializeApp(firebaseConfig);
 

@@ -43,7 +43,7 @@ const StandByUI = ({ picture }) => {
     };
 
     useEffect(() => {
-        const interval = setInterval(updatePosition, 16);
+        const interval = setInterval(updatePosition, 8);
         return () => clearInterval(interval);
     }, [position, direction]);
 
