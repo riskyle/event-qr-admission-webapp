@@ -13,7 +13,7 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDroR37bkWLjKQCVixOKMgU0xOh9xxrg0I",
+  apiKey: process.env.FIREBASE_API,
   authDomain: "event-qr-admission.firebaseapp.com",
   projectId: "event-qr-admission",
   storageBucket: "event-qr-admission.appspot.com",
@@ -25,7 +25,7 @@ const firebaseConfig = {
 /* 
                 !!!!BACKER!!!!
  const firebaseConfig = {
-   apiKey: "AIzaSyBKx9ox4_r82rZjc-yQhdkb4qdnQ3uERYQ",
+   apiKey: process.env.BACKER_FIREBASE_API,
    authDomain: "event-qr-admission-backer.firebaseapp.com",
    projectId: "event-qr-admission-backer",
    storageBucket: "event-qr-admission-backer.appspot.com",
