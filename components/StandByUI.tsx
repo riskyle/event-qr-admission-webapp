@@ -58,5 +58,5 @@ const StandByUI = ({ picture }) => {
         </div>
     );
 };
-// adw
+// adw              
 export default StandByUI;

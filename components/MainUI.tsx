@@ -34,7 +34,7 @@ const MainUI = ({ picture, queue, setQueue, setIsStandBy, resetStandbyTimer }) =
         }
     }, [isProcessing, queue]);
 
-    return (
+    return (       
         <>
             <div className="display">
                 <div className="grid">
