@@ -6,7 +6,7 @@ const StandByUI = ({ picture }) => {
     const [direction, setDirection] = useState<{ x: number; y: number }>({ x: 2, y: 2 });
     const [backgroundColor, setBackgroundColor] = useState<string>('#FFFFFF');
 
-    const colors: string[] = ['#19305a', '#79cdff', '#FFFFFF'];
+    const colors: string[] = ['#223442', '#b9b9b9', '#FFFFFF'];
 
     const updatePosition = () => {
         if (imgRef.current) {
@@ -51,12 +51,12 @@ const StandByUI = ({ picture }) => {
         <div style={{ position: 'relative', width: '100%', height: '100vh', backgroundColor, overflow: 'hidden' }}>
             <img
                 ref={imgRef}
-                src={picture("img/standbymodeBG.png")}
+                src={picture("img/eComiaText.png")}
                 alt="Bouncing Image"
-                style={{ position: 'absolute', left: position.x, top: position.y, width: '300px' }}
+                style={{ position: 'absolute', left: position.x, top: position.y, width: '400px' }}
             />
         </div>
     );
 };
-// adw              
+
 export default StandByUI;
