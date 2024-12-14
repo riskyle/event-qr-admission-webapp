@@ -69,15 +69,23 @@ const App = () => {
     onSnapshot(queryEmployee, (snapshot) => employeeDetails(snapshot));
   }, []);
 
-  return isStandby && queue.length == 0
-    ? (<StandByUI picture={picture} />)
-    : (<MainUI
-      picture={picture}
-      queue={queue}
-      setQueue={setQueue}
-      setIsStandBy={setIsStandBy}
-      resetStandbyTimer={resetStandbyTimer}
-    />)
+  return <MainUI
+         picture={picture}
+         queue={queue}
+         setQueue={setQueue}
+         setIsStandBy={setIsStandBy}
+         resetStandbyTimer={resetStandbyTimer}
+       />
+
+  // return isStandby && queue.length == 0
+  //   ? (<StandByUI picture={picture} />)
+  //   : (<MainUI
+  //     picture={picture}
+  //     queue={queue}
+  //     setQueue={setQueue}
+  //     setIsStandBy={setIsStandBy}
+  //     resetStandbyTimer={resetStandbyTimer}
+  //   />)
 };
 
 export default App;
